@@ -38,11 +38,15 @@ def main():
                 continue
             break
 
+        # placements of blocks
         blocks = []
         for i in range(5 - 1):
             for j in range(13 - 1):
                 blocks.append(structures.Block((SCR_SIZ[X] * ((j + 1) % 13) / 13, SCR_SIZ[Y] * 0.1 * (i + 1))))
+        
+        # game start
         status, bullet = IO.display(PRC, bullet=structures.Bullet(INIT_P_BLL), blocks=blocks)
+        # after game
         if status == END:
             pygame.quit()
         if IO.display(status, bullet=bullet) != RDO:

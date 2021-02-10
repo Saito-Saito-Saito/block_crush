@@ -7,6 +7,51 @@ import pygame
 from pygame.locals import *
 import sys
 
+def startmenu():
+    # building the screen
+    pygame.init()
+    screen = pygame.display.set_mode(SCR_SIZ)
+    pygame.display.set_caption("BLOCK CRUSH")
+        
+    button = pygame.Rect(SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 - 50, 200, 100)
+    font55 = pygame.font.Font(None, 55)
+
+    # start menu
+    while True:
+        # displaying setting
+        screen.fill(BCG_COL)
+        pygame.draw.rect(screen, (255, 255, 255), button)
+        text55 = font55.render("START", True, (0, 255, 0))
+        screen.blit(text55, (SCR_SIZ[X] / 2 - 65, SCR_SIZ[Y] / 2 - 15))
+
+        # events
+        for event in pygame.event.get():
+            # exit
+            if event.type == QUIT:
+                pygame.quit()
+                bullet = 0
+                return END
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    bullet = 0
+                    return END
+                # start
+                if event.key == K_RETURN:
+                    break
+            if event.type == MOUSEBUTTONDOWN:
+                if button.collidepoint(event.pos):
+                    break
+        # in case of no events
+        else:
+            pygame.display.update()
+            pygame.time.wait(LOAD_TIME)
+            continue
+        # in case of start
+        pygame.quit()
+        break
+
+
 def display(status, bullet=structures.Bullet(INIT_P_BLL), blocks = [structures.Block((SCR_SIZ[X] * ((i + 1) % 5) / 5, SCR_SIZ[Y] * 0.3)) for i in range(4)]):
     # building the screen
     pygame.init()
@@ -75,19 +120,19 @@ def display(status, bullet=structures.Bullet(INIT_P_BLL), blocks = [structures.B
         # OVR
         if status == OVR:
             text55 = font55.render("GAME OVER", True, (255, 0, 0))
-            text33 = font33.render("ESC TO FINISH", True, (255, 0, 0))
             screen.blit(text55, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 - 22))
-            screen.blit(text33, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 + 22))
-            text33 = font33.render("ENTER TO RESTART", True, (255, 0, 0))
-            screen.blit(text33, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 + 55))
+            button = pygame.Rect(SCR_SIZ[X] / 2 - 60, SCR_SIZ[Y] / 2 + 45, 120, 50)
+            pygame.draw.rect(screen, (255, 255, 255), button)
+            text33 = font33.render("RESTART", True, (255, 0, 0))
+            screen.blit(text33, (SCR_SIZ[X] / 2 - 50, SCR_SIZ[Y] / 2 + 60))
         # WIN
         if status == WIN:
             text55 = font55.render("YOU WIN", True, (0, 255, 0))
-            text33 = font33.render("ESC TO FINISH", True, (0, 255, 0))
-            screen.blit(text55, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 - 22))
-            screen.blit(text33, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 + 22))
-            text33 = font33.render("ENTER TO RESTART", True, (255, 0, 0))
-            screen.blit(text33, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 + 55))
+            screen.blit(text55, (SCR_SIZ[X] / 2 - 80, SCR_SIZ[Y] / 2 - 22))
+            button = pygame.Rect(SCR_SIZ[X] / 2 - 60, SCR_SIZ[Y] / 2 + 45, 120, 50)
+            pygame.draw.rect(screen, (255, 255, 255), button)
+            text33 = font33.render("RESTART", True, (0, 255, 0))
+            screen.blit(text33, (SCR_SIZ[X] / 2 - 50, SCR_SIZ[Y] / 2 + 60))
             
             
 
@@ -100,7 +145,10 @@ def display(status, bullet=structures.Bullet(INIT_P_BLL), blocks = [structures.B
                 if event.key == K_ESCAPE:
                     pygame.quit()
                     return END, bullet
-                if event.key == K_RETURN:
+                if event.key == K_RETURN and status != PRC:
+                    return RDO
+            if event.type == MOUSEBUTTONDOWN and status != PRC:
+                if button.collidepoint(event.pos):
                     return RDO
 
         

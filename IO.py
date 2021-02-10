@@ -20,7 +20,7 @@ def startmenu():
     while True:
         # displaying setting
         screen.fill(BCG_COL)
-        pygame.draw.rect(screen, (255, 255, 255), button)
+        pygame.draw.rect(screen, (255, 255, 255), button, 2)
         text55 = font55.render("START", True, (0, 255, 0))
         screen.blit(text55, (SCR_SIZ[X] / 2 - 65, SCR_SIZ[Y] / 2 - 15))
 
@@ -122,7 +122,7 @@ def display(status, bullet=structures.Bullet(INIT_P_BLL), blocks = [structures.B
             text55 = font55.render("GAME OVER", True, (255, 0, 0))
             screen.blit(text55, (SCR_SIZ[X] / 2 - 100, SCR_SIZ[Y] / 2 - 22))
             button = pygame.Rect(SCR_SIZ[X] / 2 - 60, SCR_SIZ[Y] / 2 + 45, 120, 50)
-            pygame.draw.rect(screen, (255, 255, 255), button)
+            pygame.draw.rect(screen, (255, 255, 255), button, 2)
             text33 = font33.render("RESTART", True, (255, 0, 0))
             screen.blit(text33, (SCR_SIZ[X] / 2 - 50, SCR_SIZ[Y] / 2 + 60))
         # WIN
@@ -130,7 +130,7 @@ def display(status, bullet=structures.Bullet(INIT_P_BLL), blocks = [structures.B
             text55 = font55.render("YOU WIN", True, (0, 255, 0))
             screen.blit(text55, (SCR_SIZ[X] / 2 - 80, SCR_SIZ[Y] / 2 - 22))
             button = pygame.Rect(SCR_SIZ[X] / 2 - 60, SCR_SIZ[Y] / 2 + 45, 120, 50)
-            pygame.draw.rect(screen, (255, 255, 255), button)
+            pygame.draw.rect(screen, (255, 255, 255), button, 2)
             text33 = font33.render("RESTART", True, (0, 255, 0))
             screen.blit(text33, (SCR_SIZ[X] / 2 - 50, SCR_SIZ[Y] / 2 + 60))
             
